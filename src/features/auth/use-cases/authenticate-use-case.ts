@@ -5,12 +5,6 @@ import { AuthDataSource } from '../data-sources/auth-data-source'
 import { UserEntity } from '../../user/entities/user-entity'
 import { AuthenticateResponseEntity } from '../entities/authenticate-response-entity'
 
-interface AuthenticateParameter {
-  token: string
-  password?: string
-  user?: UserEntity
-}
-
 @injectable()
 export default class AuthenticateUseCase extends UseCase<AuthenticateParameter, AuthenticateResponseEntity | null> {
   constructor(
@@ -23,4 +17,10 @@ export default class AuthenticateUseCase extends UseCase<AuthenticateParameter, 
   protected async execute(parameters: AuthenticateParameter): Promise<AuthenticateResponseEntity | null> {
     return await this.remoteAuthDataSource.authenticate(parameters.token, parameters.password, parameters.user)
   }
+}
+
+interface AuthenticateParameter {
+  token: string
+  password?: string
+  user?: UserEntity
 }
