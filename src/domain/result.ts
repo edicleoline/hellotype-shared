@@ -1,15 +1,15 @@
 interface ErrorResponseData {
-  detail?: string;
+  detail?: string
 }
 
 interface ErrorResponse {
-  data?: ErrorResponseData;
-  status?: number;
-  statusText?: string;
+  data?: ErrorResponseData
+  status?: number
+  statusText?: string
 }
 
 interface HelloworldError extends Error {
-  response?: ErrorResponse;
+  response?: ErrorResponse
 }
 
 export default class Result<T> {

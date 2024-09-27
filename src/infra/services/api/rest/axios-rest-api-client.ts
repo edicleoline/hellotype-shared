@@ -5,7 +5,7 @@ import { config } from '../../../../services/api/rest/api-config'
 import { RestApiClient } from '../../../../services/api/rest/rest-api-client'
 import camelcaseKeys from 'camelcase-keys'
 
-type RequestParams = Record<string, any>;
+type RequestParams = Record<string, any>
 
 @injectable()
 export class AxiosRestApiClient implements RestApiClient {
@@ -32,7 +32,7 @@ export class AxiosRestApiClient implements RestApiClient {
     if (response.data && typeof response.data === 'object') {
       response.data = camelcaseKeys(response.data, { deep: true })
     }
-    
+
     if (response.config.url === '/auth/authenticate') {
       const token = response.data.accessToken
 

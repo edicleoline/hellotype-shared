@@ -6,9 +6,9 @@ import { UserEntity } from '../../user/entities/user-entity'
 import { AuthenticateResponseEntity } from '../entities/authenticate-response-entity'
 
 interface Request {
-  token: string;
-  password?: string;
-  user?: UserEntity;
+  token: string
+  password?: string
+  user?: UserEntity
 }
 
 @injectable()
