@@ -1,9 +1,9 @@
 export class IdentifyResponseEntity {
   accessToken: string
-  method: string
+  redirect?: string
 
   constructor(data: Partial<IdentifyResponseEntity>) {
     this.accessToken = data.accessToken!
-    this.method = data.method!
+    this.redirect = data.redirect!
   }
 }

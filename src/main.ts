@@ -1,14 +1,14 @@
 import container from './di'
 import IdentifyUseCase from './features/auth/use-cases/identify-use-case'
 import AuthenticateUseCase from './features/auth/use-cases/authenticate-use-case'
-import MeUseCase from './features/account/use-cases/me-use-case'
+import WhoisUseCase from './features/account/use-cases/whois-use-case'
 import { config } from './services/api/rest/api-config'
 
 config.baseUrl = 'http://127.0.0.1:8000/api/v1'
 
 const identifyUseCase = container.get<IdentifyUseCase>(IdentifyUseCase)
 const authenticateUseCase = container.get<AuthenticateUseCase>(AuthenticateUseCase)
-const meUseCase = container.get<MeUseCase>(MeUseCase)
+const meUseCase = container.get<WhoisUseCase>(WhoisUseCase)
 
 identifyUseCase.invoke('edicleo').then((identifyResult) => {
   if (identifyResult?.data?.accessToken) {

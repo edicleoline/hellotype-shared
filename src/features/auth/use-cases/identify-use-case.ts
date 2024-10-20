@@ -1,19 +1,20 @@
 import { inject, injectable } from 'inversify'
-
 import UseCase from '../../../domain/use-case'
 import { AuthDataSource } from '../data-sources/auth-data-source'
-import { IdentifyResponseEntity } from '../entities/identify-response-entity'
+import { IdentifyResponseEntity } from '../entities'
+import Result from '../../../domain/result'
+import TYPES from '../../../types'
 
 @injectable()
-export default class IdentifyUseCase extends UseCase<string, IdentifyResponseEntity | null> {
+export default class IdentifyUseCase extends UseCase<string, Result<IdentifyResponseEntity>> {
   constructor(
-    @inject('RemoteAuthDataSource') private remoteAuthDataSource: AuthDataSource,
-    @inject('IoDispatcher') ioDispatcher: (fn: () => Promise<IdentifyResponseEntity | null>) => Promise<IdentifyResponseEntity | null>
+    @inject(TYPES.RemoteAuthDataSource) private remoteAuthDataSource: AuthDataSource,
+    @inject(TYPES.IoDispatcher) ioDispatcher: (fn: () => Promise<Result<IdentifyResponseEntity>>) => Promise<Result<IdentifyResponseEntity>>
   ) {
     super(ioDispatcher)
   }
 
-  protected async execute(identifier: string): Promise<IdentifyResponseEntity | null> {
+  protected async execute(identifier: string): Promise<Result<IdentifyResponseEntity>> {
     return await this.remoteAuthDataSource.identify(identifier)
   }
 }

@@ -1,9 +1,9 @@
+import Result from './../../../domain/result'
 import { UserEntity } from '../../user/entities/user-entity'
-import { AuthenticateResponseEntity } from '../entities/authenticate-response-entity'
-import { IdentifyResponseEntity } from '../entities/identify-response-entity'
+import { AuthenticateResponseEntity, IdentifyResponseEntity } from '../entities'
 
 export interface AuthDataSource {
-  identify(identifier: string): Promise<IdentifyResponseEntity | null>
+  identify(identifier: string): Promise<Result<IdentifyResponseEntity>>
 
-  authenticate(token: string, password?: string, user?: UserEntity): Promise<AuthenticateResponseEntity | null>
+  authenticate(token: string, password?: string, user?: UserEntity): Promise<Result<AuthenticateResponseEntity>>
 }

@@ -1,26 +1,21 @@
-interface ErrorResponseData {
-  detail?: string
-}
-
-interface ErrorResponse {
-  data?: ErrorResponseData
-  status?: number
-  statusText?: string
-}
-
-interface HelloworldError extends Error {
-  response?: ErrorResponse
+export interface ErrorResponse {
+  data?: {
+    code: number;
+    detail: string;
+  }
+  status?: number;
+  statusText?: string;
 }
 
 export default class Result<T> {
-  private constructor(public readonly data?: T, public readonly error?: HelloworldError) {
+  private constructor(public readonly data?: T, public readonly error?: ErrorResponse) {
   }
 
   static success<T>(data: T): Result<T> {
     return new Result<T>(data)
   }
 
-  static error<T>(error: Error): Result<T> {
+  static error<T>(error: ErrorResponse | undefined): Result<T> {
     return new Result<T>(undefined, error)
   }
 

@@ -3,24 +3,24 @@ import Result from './result'
 
 // @ts-ignore
 @injectable()
-export default abstract class UseCase<P, R> {
+export default abstract class UseCase<P, R extends Result<any>> {
   protected constructor(
     private readonly promiseHandler: (callback: () => Promise<R>) => Promise<R>,
     private readonly ioDispatcher?: (callback: () => Promise<R>) => Promise<R>
   ) {
   }
 
-  async invoke(parameters?: P): Promise<Result<R>> {
+  async invoke(parameters?: P): Promise<R> {
     try {
-      const result = await this.promiseHandler(async () => {
+      return await this.promiseHandler(async () => {
         if (this.ioDispatcher) {
           return this.ioDispatcher(() => this.execute(parameters))
         }
         return this.execute(parameters)
       })
-      return Result.success(result)
     } catch (e) {
-      return Result.error(e as Error)
+      // @ts-ignore
+      return Result.error(e as Error) as R
     }
   }
 
