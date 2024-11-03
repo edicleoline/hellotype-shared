@@ -5,8 +5,8 @@ const TYPES = {
   RemoteAuthDataSource: Symbol.for('RemoteAuthDataSource'),
   TokenCache: Symbol.for('TokenCache'),
   RemoteAccountDataSource: Symbol.for('RemoteAccountDataSource'),
-  RemotePhoneVerifierDataSource: Symbol.for('RemotePhoneVerifierDataSource'),
-  LocalPhoneVerifierDataSource: Symbol.for('LocalPhoneVerifierDataSource'),
+  RemoteDeviceVerifierDataSource: Symbol.for('RemoteDeviceVerifierDataSource'),
+  LocalDeviceVerifierDataSource: Symbol.for('LocalDeviceVerifierDataSource'),
   RemoteClientDataSource: Symbol.for('RemoteClientDataSource'),
   RemotePhoneDataSource: Symbol.for('RemotePhoneDataSource'),
   LocalPhoneDataSource: Symbol.for('LocalPhoneDataSource')

@@ -1,10 +1,11 @@
 export interface ErrorResponse {
   data?: {
-    code: number;
-    detail: string;
+    code: number
+    detail: string
+    params?: {}
   }
-  status?: number;
-  statusText?: string;
+  status?: number
+  statusText?: string
 }
 
 export default class Result<T> {

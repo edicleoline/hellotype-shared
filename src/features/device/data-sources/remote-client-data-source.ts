@@ -5,6 +5,7 @@ import { RestApiClient } from '../../../services/api/rest/rest-api-client'
 import { ClientDataSource } from './client-data-source'
 import { ClientEntity, DeviceEntity } from '../entities'
 import TYPES from '../../../types'
+import { clean } from '../../../util/object'
 
 @injectable()
 export class RemoteClientDataSource implements ClientDataSource {
@@ -14,10 +15,6 @@ export class RemoteClientDataSource implements ClientDataSource {
   }
 
   async install(device: DeviceEntity): Promise<Result<ClientEntity>> {
-    return await this.restApiClient.post<ClientEntity>(`/client/install`, {
-      model: device?.model,
-      os: device?.os,
-      os_version: device?.osVersion
-    })
+    return await this.restApiClient.post<ClientEntity>(`/client/install`, clean(device))
   }
 }

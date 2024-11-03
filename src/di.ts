@@ -14,13 +14,13 @@ import { RestApiClient } from './services/api/rest/rest-api-client'
 import { FetchRestApiClient } from './infra/services/api/rest/fetch-rest-api-client'
 import { TokenCache, TokenCacheImpl } from './services/api/token-cache'
 import {
-  RemotePhoneVerifierDataSource
-} from './features/phone-verifier/data-sources/remote-phone-verifier-data-source'
-import PhoneVerifierStartUseCase from './features/phone-verifier/use-cases/start-use-case'
-import PhoneVerifyUseCase from './features/phone-verifier/use-cases/verify-use-case'
-import { RemoteClientDataSource } from './features/client/data-sources/remote-client-data-source'
-import InstallUseCase from './features/client/use-cases/install-use-case'
-import MethodsByDeviceUseCase from './features/phone-verifier/use-cases/methods-by-device.use-case'
+  RemoteDeviceVerifierDataSource
+} from './features/device-verifier/data-sources/remote-device-verifier-data-source'
+import PhoneVerifierStartUseCase from './features/device-verifier/use-cases/start-use-case'
+import PhoneVerifyUseCase from './features/device-verifier/use-cases/verify-use-case'
+import { RemoteClientDataSource } from './features/device/data-sources/remote-client-data-source'
+import InstallUseCase from './features/device/use-cases/install-use-case'
+import MethodsByDeviceUseCase from './features/device-verifier/use-cases/methods-by-device.use-case'
 import { RemotePhoneDataSource } from './features/phone/data-sources/remote-phone-data-source'
 import FindOrCreateUseCase from './features/phone/use-cases/find-or-create-use-case'
 import { LocalStorageService } from './services/storage/local-storage-service'
@@ -30,16 +30,16 @@ import {
   PhoneDataSource,
   PhoneLocalDataSource
 } from './features/phone/data-sources/phone-data-source'
-import { ClientDataSource } from './features/client/data-sources/client-data-source'
+import { ClientDataSource } from './features/device/data-sources/client-data-source'
 import {
-  PhoneVerifierDataSource
-} from './features/phone-verifier/data-sources/phone-verifier-data-source'
+  DeviceVerifierDataSource
+} from './features/device-verifier/data-sources/device-verifier-data-source'
 import { LocalPhoneDataSource } from './features/phone/data-sources/local-phone-data-source'
 import {
-  LocalPhoneVerifierDataSource
-} from './features/phone-verifier/data-sources/local-phone-verifier-data-source'
-import FindStartByPhoneUseCase
-  from './features/phone-verifier/use-cases/find-start-by-phone-use-case'
+  LocalDeviceVerifierDataSource
+} from './features/device-verifier/data-sources/local-device-verifier-data-source'
+import FindStartByTargetUseCase
+  from './features/device-verifier/use-cases/find-start-by-target-use-case'
 
 const ioDispatcherFunction = async <T>(fn: () => Promise<T>): Promise<T> => {
   return await fn()
@@ -60,8 +60,8 @@ container.bind<LocalStorageService>(TYPES.LocalStorageService).to(ReactAsyncStor
 container.bind<AuthDataSource>(TYPES.RemoteAuthDataSource).to(RemoteAuthDataSource)
 container.bind<AccountDataSource>(TYPES.RemoteAccountDataSource).to(RemoteAccountDataSource)
 
-container.bind<PhoneVerifierDataSource>(TYPES.RemotePhoneVerifierDataSource).to(RemotePhoneVerifierDataSource)
-container.bind<LocalPhoneVerifierDataSource>(TYPES.LocalPhoneVerifierDataSource).to(LocalPhoneVerifierDataSource)
+container.bind<DeviceVerifierDataSource>(TYPES.RemoteDeviceVerifierDataSource).to(RemoteDeviceVerifierDataSource)
+container.bind<LocalDeviceVerifierDataSource>(TYPES.LocalDeviceVerifierDataSource).to(LocalDeviceVerifierDataSource)
 
 container.bind<ClientDataSource>(TYPES.RemoteClientDataSource).to(RemoteClientDataSource)
 
@@ -76,7 +76,7 @@ container.bind<PhoneVerifyUseCase>(PhoneVerifyUseCase).to(PhoneVerifyUseCase)
 container.bind<InstallUseCase>(InstallUseCase).to(InstallUseCase)
 container.bind<MethodsByDeviceUseCase>(MethodsByDeviceUseCase).to(MethodsByDeviceUseCase)
 container.bind<FindOrCreateUseCase>(FindOrCreateUseCase).to(FindOrCreateUseCase)
-container.bind<FindStartByPhoneUseCase>(FindStartByPhoneUseCase).to(FindStartByPhoneUseCase)
+container.bind<FindStartByTargetUseCase>(FindStartByTargetUseCase).to(FindStartByTargetUseCase)
 
 
 export default container

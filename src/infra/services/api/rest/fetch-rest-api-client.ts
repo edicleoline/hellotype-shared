@@ -6,6 +6,7 @@ import Result from '../../../../domain/result'
 import { ErrorCode } from '../../../../error'
 import { TokenCache } from '../../../../services/api/token-cache'
 import TYPES from '../../../../types'
+import { toSnakeCase } from './../../../../util/object'
 
 type RequestParams = Record<string, any>
 
@@ -69,11 +70,13 @@ export class FetchRestApiClient implements RestApiClient {
       url += `?${queryString}`
     }
 
+    const realBody = body ? toSnakeCase(body) : undefined
+
     try {
       const response = await fetch(`${config.baseUrl}${url}`, {
         method,
         headers,
-        body: body ? JSON.stringify(body) : null
+        body: realBody ? JSON.stringify(realBody) : null
       })
 
       const data = await response.json()
@@ -88,7 +91,7 @@ export class FetchRestApiClient implements RestApiClient {
 
       if (!response.ok) {
         if (response.status === 401 && data?.code == 1023 && this.tokenCache?.getRefreshToken()) {
-          return this.handleUnauthorized<T>(method, url, body, params)
+          return this.handleUnauthorized<T>(method, url, realBody, params)
         }
 
         return Result.error<T>({
